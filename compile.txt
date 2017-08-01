@@ -1,0 +1,4 @@
+1. Install boost lib
+
+2. Compile
+# g++ test.cc json_spirit_reader.cpp json_spirit_writer.cpp -o test -rdynamic -lboost_system -lboost_thread

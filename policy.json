@@ -1,0 +1,39 @@
+{
+  "Version": "2012-10-17",
+  "Id": "http referer policy example",
+  "Statement": [
+    {
+      "Sid": "Allow get requests referred by www.example.com and example.com.",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::examplebucket/*",
+      "Condition": {
+        "StringLike": {
+          "aws:Referer": [
+            "http://www.example.com/*",
+            "http://example.com/*"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "Explicit deny to ensure requests are allowed only from specific referer.",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::examplebucket/*",
+      "Condition": {
+        "StringNotLike": {
+          "aws:Referer": [
+            "http://www.example.com/*",
+            "http://example.com/*"
+          ]
+        }
+      }
+    }
+  ]
+}
+
+
+
